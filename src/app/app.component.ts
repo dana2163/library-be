@@ -1,26 +1,36 @@
+import { Component } from '@angular/core';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  decimalNumber: number;
+  decimalNumber = 0;
   binaryArray: number[] = [0, 0, 0, 0, 0, 0, 0, 0];
 
-  constructor() {
-    this.decimalNumber = 0;
+  decimalToBinary(): void {
+    let binaryArray: number[] = [];
+    let decimalNumber = this.decimalNumber;
+    while (decimalNumber > 0) {
+      let remainder = decimalNumber % 2;
+      binaryArray.unshift(remainder);
+      decimalNumber = Math.floor(decimalNumber / 2);
+    }
+    this.binaryArray = binaryArray.length > 0 ? binaryArray : [0];
   }
 
-  updateBinaryArray() {
-    this.binaryArray = this.decimalNumber
-      .toString(2)
-      .padStart(8, '0')
-      .split('')
-      .map(char => +char);
+  binaryToDecimal(): void {
+    let decimalNumber = 0;
+    for (let i = this.binaryArray.length - 1; i >= 0; i--) {
+      decimalNumber += this.binaryArray[i] * Math.pow(2, 7 - i);
+    }
+    this.decimalNumber = decimalNumber;
   }
 
-  updateDecimalNumber() {
-    this.decimalNumber = parseInt(this.binaryArray.join(''), 2);
+  trackByIndex(index: number, item: any): number {
+    return index;
   }
 }
-import { Component } from '@angular/core';
+
+

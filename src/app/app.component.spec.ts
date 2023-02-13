@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { AppComponent } from '../../../WeTe3/src/app/app.component';
+import { AppComponent } from '/Users/mac/WebstormProjects/WeTe3/library-fe/WeTe3-fe/src/app/app.component';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
@@ -19,6 +19,7 @@ describe('AppComponent', () => {
   it(`should have as title 'WeTe3'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
+    // @ts-ignore
     expect(app.title).toEqual('WeTe3');
   });
 

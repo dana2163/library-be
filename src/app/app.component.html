@@ -1,17 +1,12 @@
-<div>
-  <label>Desatinná sústava:</label>
-  <input type="number" [(ngModel)]="decimalNumber" (ngModelChange)="updateBinaryArray()" max="255">
+<div class="input-container">
+  <label>Desiatková sústava:</label>
+  <input type="number" [(ngModel)]="decimalNumber" (ngModelChange)="decimalToBinary()" />
 </div>
-<div>
-  <label>Dvojková sústava:</label>
-<div *ngFor="let i of [0, 1, 2, 3, 4, 5, 6, 7]">
-  <div [ngClass]="{'filled-square': binaryArray[i] === 1}"></div>
-    <div [ngStyle]="{'background-color': binaryArray[i] ? 'black' : 'white'}"
-         style="width: 20px;
-         height: 20px;
-         display: inline-block;
-         border: 1px solid black; ">
-
+<div class="input-container">
+  <label>Binárna sústava:</label>
+  <div class="binary-input">
+    <div *ngFor="let bit of binaryArray; let i = index; trackBy: trackByIndex">
+      <input type="checkbox" [(ngModel)]="binaryArray[i]" (ngModelChange)="binaryToDecimal()" />
     </div>
   </div>
 </div>
