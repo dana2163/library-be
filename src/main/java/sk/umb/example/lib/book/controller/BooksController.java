@@ -1,12 +1,13 @@
-package sk.umb.example.lib.book.kontroler;
+package sk.umb.example.lib.book.controller;
 
 import org.springframework.web.bind.annotation.*;
 
-public class BookKontroler {
+
+class BookController {
 
     @GetMapping("/api/books")
-    public void listResource(@RequestParam(required = false)) {
-        System.out.println("List Resource.");
+    public void listResource(@RequestParam(required = false, name = "paramName") String paramValue) {
+        System.out.println("List Resource with parameter: " + paramValue);
     }
 
     @GetMapping("/api/books/{bookId}")
