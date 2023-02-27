@@ -30,7 +30,7 @@ public class BookService {
         return bookDatabase.get(bookId);
     }
 
-    public Long createCustomer(BookRequestDTO bookRequestDTO) {
+    public Long createBook(BookRequestDTO bookRequestDTO) {
         BookDetailDTO bookDetailDTO = mapToBookDetailDTO(lastIndex.getAndIncrement(),
                                                                     bookRequestDTO);
 
@@ -39,13 +39,17 @@ public class BookService {
         return bookDetailDTO.getId();
     }
 
-    private static BookDetailDTO mapToCustomerDetailDTO(Long index, CustomerRequestDTO customerRequestDTO) {
+    private static BookDetailDTO mapToCustomerDetailDTO(Long index, BookRequestDTO bookRequestDTO) {
         BookDetailDTO dto = new BookDetailDTO();
 
         dto.setId(index);
         dto.setLastName(BookRequestDTO.getLastName());
         dto.setFirstName(BookRequestDTO.getFirstName());
         dto.setEmailContact(BookRequestDTO.getEmailContact());
+        dto.setTitle(bookRequestDTO.getTitle());
+        dto.setCount(bookRequestDTO.getCount());
+        dto.setIsbn(bookRequestDTO.getIsbn());
+        dto.setCategoryIds(index);
 
         return dto;
     }
@@ -53,7 +57,7 @@ public class BookService {
     public void updateCBook(Long bookId, BookRequestDTO BookRequestDTO) {
         validateBookExists(bookId);
 
-        BookDetailDTO BookDetailDTO = bookDatabase.get(bookId);
+        BookDetailDTO bookDetailDTO = bookDatabase.get(bookId);
 
         if (! Strings.isEmpty(BookRequestDTO.getFirstName())) {
             BookDetailDTO.setFirstName(BookRequestDTO.getFirstName());
@@ -68,13 +72,13 @@ public class BookService {
         }
     }
 
-    private void validateCustomerExists(Long bookId) {
+    private void validateBookExists(Long bookId) {
         if (! bookDatabase.containsKey(bookId)) {
-            throw new IllegalArgumentException("bookId: " + bookId + " does not exists!");
+            throw new IllegalArgumentException("BookId: " + bookId + " does not exists!");
         }
     }
 
-    public void deleteBook(Long customerId) {
-        bookDatabase.remove(customerId);
+    public void deleteBook(Long bookId) {
+        bookDatabase.remove(bookId);
     }
 }
